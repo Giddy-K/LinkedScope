@@ -1,0 +1,6 @@
+[API_KEYS]
+hunter = YOUR_HUNTER_IO_API_KEY
+
+[CREDS]
+linkedin_username = YOUR_LINKEDIN_EMAIL_OR_USERNAME
+linkedin_password = YOUR_LINKEDIN_PASSWORD

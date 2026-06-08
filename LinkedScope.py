@@ -155,17 +155,22 @@ def get_search():
             included = content.get('included', [])
             companies = [x for x in included if 'EntityResultViewModel' in str(x.get('$type', ''))]
             firstID = 0
+            exactID = 0
+            raw_search = urllib.parse.unquote(search).lower().strip('"')
             for e in companies:
                 tracking = e.get('trackingUrn', '')
+                company_name = (e.get('title') or {}).get('text', '')
                 if 'urn:li:company:' in tracking:
                     try:
                         cid = int(tracking.split('urn:li:company:')[1])
                         if firstID == 0:
                             firstID = cid
-                        print("[Notice] Found company ID: %s" % cid)
+                        if company_name.lower() == raw_search and exactID == 0:
+                            exactID = cid
+                        print("[Notice] Found company ID: %s (%s)" % (cid, company_name))
                     except:
                         continue
-            companyID = firstID
+            companyID = exactID if exactID != 0 else firstID
             if companyID == 0:
                 print("[WARNING] No valid company ID found in auto, please restart and find your own")
         else:
@@ -331,6 +336,7 @@ def authenticate():
     return cookies
 
 if __name__ == '__main__':
+  try:
     print("")
     with open(baseDir + "banner.txt", "r", encoding="utf-8") as a:
         print(a.read())
@@ -430,3 +436,6 @@ if __name__ == '__main__':
     get_search()
 
     print("[+] Complete")
+  except KeyboardInterrupt:
+    print("\n[!] Interrupted. Exiting.")
+    sys.exit(0)

@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import sys
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
 import re
 import time
 import requests
@@ -38,15 +40,6 @@ def getCookies(cookie_jar, domain):
     return '; '.join(found)
 
 def login():
-     # Assuming 'p' is a BeautifulSoup object parsed from a page
-    authUUID_element = p.find(attrs={'name': 'authUUID'})
-    if authUUID_element is None:
-        raise ValueError("authUUID element not found in the HTML")
-    
-    try:
-        authUUID = authUUID_element['value']
-    except KeyError:
-        raise KeyError("'value' attribute not found in the authUUID element")
     URL = 'https://www.linkedin.com'
     s = requests.Session()
     rv = s.get(URL + '/uas/login?trk=guest_homepage-basic_nav-header-signin')
@@ -299,7 +292,7 @@ def get_search():
                     "<td>%s</td>" \
                     "<td>%s</td>" \
                     "<td>%s</td>" \
-                    "<a>" % (data_slug, ct ,b64data, data_slug, name, email, data_occupation, data_location)
+                    "</tr>" % (data_slug, ct ,b64data, data_slug, name, email, data_occupation, data_location)
                 
                 csv.append('"%s","%s","%s","%s","%s", "%s"' % (data_firstname, data_lastname, name, email, data_occupation, data_location.replace(",",";")))
                 foot = "</table></center>"
@@ -312,8 +305,6 @@ def get_search():
                 f = open(baseDir + '{}.csv'.format(outfile), 'wb')
                 newcsv='\n'.join(csv)
                 f.write(newcsv.encode())
-                for x in csv:
-                    f.write(x.join('\n').encode())
                 f.close()
             else:
                 print("[!] Headless profile found. Skipping")

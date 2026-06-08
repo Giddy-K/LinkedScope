@@ -1,0 +1,9 @@
+[API_KEYS]
+hunter = YOUR_HUNTER_IO_API_KEY
+
+[CREDS]
+linkedin_username = YOUR_LINKEDIN_EMAIL_OR_USERNAME
+linkedin_password = YOUR_LINKEDIN_PASSWORD
+; Recommended: paste your li_at cookie from browser DevTools (Application > Cookies > linkedin.com)
+; This bypasses the automated login which LinkedIn's JS-rendered page has broken.
+li_at = YOUR_LI_AT_COOKIE_VALUE

@@ -39,7 +39,6 @@ python LinkedScope.py -u "Company Name" -o outputfilename
 # Change Log
 
 ## v2.0 - June 2026
-* Renamed project from LinkedInt to LinkedScope
 * Migrated to LinkedIn's current GraphQL API (old Voyager cluster endpoint was removed)
 * Added `li_at` session cookie authentication (automated login no longer works due to JS-rendered login page)
 * Fixed `login()` crash on startup
